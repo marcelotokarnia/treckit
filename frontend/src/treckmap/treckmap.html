@@ -1,0 +1,7 @@
+<div class="treckmap">
+	<span ng-show="repo.loading">loading...</span>
+    <ui-gmap-google-map center='repo.map.center' zoom='repo.map.zoom'></ui-gmap-google-map>
+	<ul>
+		<li ng-repeat="treck in repo.trecks">{[{treck.name}]}</li>
+	</ul>
+</div>

@@ -12,7 +12,7 @@ YELLOW='\e[0;33m'
 # 3) Seja feliz
 
 
-workon djangular3  # Muda isso pro nome do virtalenv do seu projeto
+workon treckit  # Muda isso pro nome do virtalenv do seu projeto
 
 export PROJ_BASE="$(dirname ${BASH_SOURCE[0]})"
 CD=$(pwd)
@@ -66,7 +66,7 @@ function devhelp {
 function pytests {
     CD=$(pwd)
     cd $PROJ_BASE
-    dorun "./manage.py test cameras" "Testes python"
+    dorun "./manage.py test" "Testes python"
     exitcode=$?
     cd $CD
     return $exitcode
@@ -112,8 +112,8 @@ function copy2www {
     CCD=$(pwd)
     cd $PROJ_BASE/frontend
     frontprod
-    mkdir -p ../cameras/static/
-    cp -Rf dist/js dist/fonts dist/css ../cameras/static/
+    mkdir -p ../core/static/
+    cp -Rf dist/js dist/fonts dist/css ../core/static/
     cd $CCD
     return $exitcode
 }

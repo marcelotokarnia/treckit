@@ -75,39 +75,55 @@ var docs = {
 
 var lib = {
     js: [
-        './lib/jquery/jquery.js',
-        './lib/angular-1.4.0/angular.js',
-        './lib/angular-1.4.0/angular-aria.js',
-        './lib/angular-1.4.0/angular-animate.js',
-        './lib/angular-1.4.0/angular-cookies.js',
-        './lib/bootstrap/dist/js/bootstrap.js',
-        './lib/angular-ui-router-0.2.15/angular-ui-router.js',
+        './bower_components/jquery/dist/jquery.js',
+        './lib/google_maps/google_maps.js',
+        './bower_components/angular/angular.js',
+        './bower_components/angular-cookies/angular-cookies.js',
+        './bower_components/angular-simple-logger/dist/angular-simple-logger.js',
+        './bower_components/lodash/dist/lodash.js',
+        './bower_components/angular-ui-router/release/angular-ui-router.js',
+        './bower_components/bootstrap/dist/js/bootstrap.js',
+        './bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js',
+        './bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js',
+        './bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js',
+        './bower_components/js-rich-marker/src/richmarker.js',
+        './bower_components/markerclustererplus/dist/markerclusterer.min.js',
+        './bower_components/angular-google-maps/dist/angular-google-maps.js',
     ],
     jsmin: [
-        './lib/jquery/jquery.min.js',
-        './lib/angular-1.4.0/angular.min.js',
-        './lib/angular-1.4.0/angular-aria.min.js',
-        './lib/angular-1.4.0/angular-animate.min.js',
-        './lib/angular-1.4.0/angular-cookies.min.js',
-        './lib/bootstrap/dist/js/bootstrap.min.js',
-        './lib/angular-ui-router-0.2.15/angular-ui-router.min.js',
+        './bower_components/jquery/dist/jquery.min.js',
+        './lib/google_maps/google_maps.js',
+        './bower_components/angular/angular.min.js',
+        './bower_components/angular-cookies/angular-cookies.min.js',
+        './bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',
+        './bower_components/lodash/dist/lodash.min.js',
+        './bower_components/angular-ui-router/release/angular-ui-router.min.js',
+        './bower_components/bootstrap/dist/js/bootstrap.min.js',
+        './bower_components/google-maps-utility-library-v3-infobox/dist/infobox.min.js',
+        './bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.min.js',
+        './bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.min.js',
+        './bower_components/js-rich-marker/src/richmarker-compiled.js',
+        './bower_components/markerclustererplus/dist/markerclusterer.min.js',
+        './bower_components/angular-google-maps/dist/angular-google-maps.min.js',
     ],
     css: [
-        './lib/bootstrap/dist/css/bootstrap.css',
-        './lib/bootstrap/dist/css/bootstrap-theme.css',
+        './bower_components/angular/angular-csp.css',
+        './bower_components/bootstrap/dist/css/bootstrap.css',
+        './bower_components/bootstrap/dist/css/bootstrap-theme.css',
     ],
     cssmin: [
-        './lib/bootstrap/dist/css/bootstrap.min.css',
-        './lib/bootstrap/dist/css/bootstrap-theme.min.css',
+        './bower_components/angular/angular-csp.css',
+        './bower_components/bootstrap/dist/css/bootstrap.min.css',
+        './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
     ],
     tocopy: [
-        './lib/bootstrap/dist/fonts/**',
+        './bower_components/bootstrap/dist/fonts/**',
     ],
 }
 
 var testlib = {
     js: [
-        './lib/angular-1.4.0/angular-mocks.js',
+        './bower_components/angular/angular.js',
         './testlib/chai/chai.js',
         './testlib/sinon/sinon.js',
         './testlib/setup_globals.js',
@@ -135,13 +151,13 @@ concattask('concatcsslibmin', {src: lib.cssmin, dest: 'css/lib.min.css'});
 minifyjstask('minifyjs');
 minifycsstask('minifycss');
 copytask('copylibfiles', lib.tocopy, '', {prefix: 3});
-jshinttask('jshintall')
-sasstask('sass');
+jshinttask('jshintall');
+sasstask();
 
 ////////// Dev tasks
 linktaskdev('linkjsdev');
 webservertask('runserver');
-jstesttask('test')
+jstesttask('test');
 
 ////////// Prod tasks
 concattask('concatjsapp', {src: app.js('prod'), html: app.html, ngmodule: 'apptemplates', tmplprefix: 'TEMPLATE_CACHE/', dest: 'js/app.js'});
@@ -248,7 +264,7 @@ function concatall(arrays){
     return result;
 }
 
-function sasstask(id){
+function sasstask(){
     gulp.task('sass', function () {
         gulp.src(app.scss)
             .pipe(sass().on('error', sass.logError))

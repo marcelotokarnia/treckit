@@ -13,7 +13,7 @@
       <ul class="nav navbar-nav">
         <li ng-class="{active: $state.current.name == 'home'}"><a ui-sref="home">Home</a></li>
         <li ng-class="{active: $state.current.name == 'admin'}" ng-if="auth.has_permission('ADMIN')"><a ui-sref="admin">Admin</a></li>
-        <li ng-class="{active: $state.current.name == 'map'}"><a ui-sref="map">Mapa</a></li>
+        <li ng-class="{active: $state.current.name == 'treckmap'}"><a ui-sref="treckmap">Mapa</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a ui-sref="login" ng-if="!auth.authenticated()">Login</a></li>
