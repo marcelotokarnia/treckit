@@ -1,10 +1,10 @@
-angular.module('treckmap', ['appapi']);
+angular.module('treckmap', ['appapi', 'uiGmapgoogle-maps']);
 
 angular.module('treckmap').factory('mapRepository', function(AppApi){
 	var m = {
 		loading: false,
 		trecks: [],
-		map: { center: { latitude: 45, longitude: -73 }, zoom: 8 }
+		map: { center: { latitude: -22.427386, longitude: -44.796379 }, zoom: 12 }
 	};
 
 	angular.extend(m, {
