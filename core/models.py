@@ -1,10 +1,7 @@
-from django.db import models
+from django.contrib.gis.db import models
 
-# class Camera(models.Model):
-#     name = models.CharField(max_length=256)
-#     address = models.CharField(max_length=2048)
+# class TrailRecord(models.Model):
+#     points = models.MultiPointField()
 #
-#     def to_dict_json(self):
-#     	return {
-#     		'name': self.name,
-#     	}
+#     def __str__(self):
+#         return self.id
