@@ -1,3 +1,5 @@
 <div class="treckmap">
-    <ui-gmap-google-map center='repo.map.center' zoom='repo.map.zoom' dragabble="true"></ui-gmap-google-map>
+    <ui-gmap-google-map center='repo.map.center' zoom='repo.map.zoom' dragabble="true">
+        <ui-gmap-marker ng-if="repo.me" coords="repo.me.coords" idkey="repo.me.key"></ui-gmap-marker>
+    </ui-gmap-google-map>
 </div>

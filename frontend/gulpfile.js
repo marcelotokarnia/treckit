@@ -76,7 +76,6 @@ var docs = {
 var lib = {
     js: [
         './bower_components/jquery/dist/jquery.js',
-        './lib/google_maps/google_maps.js',
         './bower_components/angular/angular.js',
         './bower_components/angular-cookies/angular-cookies.js',
         './bower_components/angular-simple-logger/dist/angular-simple-logger.js',
@@ -92,7 +91,6 @@ var lib = {
     ],
     jsmin: [
         './bower_components/jquery/dist/jquery.min.js',
-        './lib/google_maps/google_maps.js',
         './bower_components/angular/angular.min.js',
         './bower_components/angular-cookies/angular-cookies.min.js',
         './bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',
