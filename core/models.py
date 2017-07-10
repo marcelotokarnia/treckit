@@ -6,6 +6,16 @@ class TrailRecord(models.Model):
     start = models.PointField()
     simplified_track = models.MultiLineStringField()
 
+    def to_marker(self):
+        return {
+            'title': self.name,
+            'coords': {
+                'latitude': self.start.y,
+                'longitude': self.start.x
+            },
+            'id': self.id
+        }
+
 
 class TrackPoint(models.Model):
     point = models.PointField()

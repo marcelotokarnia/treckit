@@ -117,7 +117,10 @@ var lib = {
     tocopy: [
         './bower_components/bootstrap/dist/fonts/**',
     ],
-}
+    icons: [
+        './icons/**',
+    ]
+};
 
 var testlib = {
     js: [
@@ -130,7 +133,7 @@ var testlib = {
 
 ////////// Big tasks
 
-var commontasks = ['concatjslib', 'concatjslibmin', 'concatcsslib', 'concatcsslibmin', 'sass', 'copylibfiles'];
+var commontasks = ['concatjslib', 'concatjslibmin', 'concatcsslib', 'concatcsslibmin', 'sass', 'copylibfiles', 'copyiconfiles'];
 var concatjstasks = ['concatjsapp', 'concatjsappdocs', 'concatjsdocs']
 var moreprodtasks = ['copydocssamples'];
 if(minify){
@@ -149,6 +152,7 @@ concattask('concatcsslibmin', {src: lib.cssmin, dest: 'css/lib.min.css'});
 minifyjstask('minifyjs');
 minifycsstask('minifycss');
 copytask('copylibfiles', lib.tocopy, '', {prefix: 3});
+copytask('copyiconfiles', lib.icons, 'icons/', {prefix: 1});
 jshinttask('jshintall');
 sasstask();
 

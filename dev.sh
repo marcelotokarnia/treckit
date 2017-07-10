@@ -114,7 +114,7 @@ function copy2www {
     cd $PROJ_BASE/frontend
     frontprod
     mkdir -p ../core/static/
-    cp -Rf dist/js dist/fonts dist/css ../core/static/
+    cp -Rf dist/js dist/fonts dist/icons dist/css ../core/static/
     cd $CCD
     return $exitcode
 }

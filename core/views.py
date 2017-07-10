@@ -1,8 +1,7 @@
 import json
 from django.http.response import JsonResponse
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth
-# from core.models import Camera
+from core.services import trail_services
 from core.decorators import ajax_login_required
 
 
@@ -39,8 +38,9 @@ def get_user_details(request):
 
 
 @ajax_login_required
-def list_cameras(request):
-    return JsonResponse([], safe=False)
+def list_trails(request):
+    trails = trail_services.list_trails()
+    return JsonResponse([t.to_marker() for t in trails], safe=False)
 
 
 def _user2dict(user):

@@ -9,17 +9,31 @@ angular.module('treckmap').factory('mapRepository', function(AppApi){
 
 	angular.extend(m, {
 		init: init,
+		clickMarker: clickMarker,
+		closeClick: closeClick
 	});
 
 	//navigator.geolocation.watchPosition();
 	navigator.geolocation.getCurrentPosition(function(data){
 		m.map.center = {latitude: data.coords.latitude, longitude: data.coords.longitude};
-		m.me = {coords: angular.copy(m.map.center), key: 'me'};
+		m.me = {coords: angular.copy(m.map.center), key: 'me', options: {icon: '/static/icons/bluedot.png'}};
 	});
+
+	function clickMarker(trail){
+		trail.windowOptions.visible = !trail.windowOptions.visible;
+	}
+
+	function closeClick(trail){
+		trail.windowOptions.visible = false;
+	}
+
 	function init(){
 		m.loading = true;
-		AppApi.list_trecks().then(function(result){
-			m.trecks = result.data;
+		AppApi.list_trails().then(function(result){
+			m.trails = result.data.map(function(trail){
+				trail.windowOptions = {visible: false};
+				return trail;
+			});
 		}).finally(function(){
 			m.loading = false;
 		});

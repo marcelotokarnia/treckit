@@ -1,5 +1,10 @@
 <div class="treckmap">
     <ui-gmap-google-map center='repo.map.center' zoom='repo.map.zoom' dragabble="true">
-        <ui-gmap-marker ng-if="repo.me" coords="repo.me.coords" idkey="repo.me.key"></ui-gmap-marker>
+        <ui-gmap-marker ng-if="repo.me" coords="repo.me.coords" options="repo.me.options" idkey="repo.me.key"></ui-gmap-marker>
+        <ui-gmap-marker ng-repeat="trail in repo.trails" options="trail.options" click="repo.clickMarker(trail)" coords="trail.coords" idkey="trail.id">
+            <ui-gmap-window options="trail.windowOptions" closeClick="repo.closeClick(trail)">
+                <div>{{trail.title}}</div>
+            </ui-gmap-window>
+        </ui-gmap-marker>
     </ui-gmap-google-map>
 </div>
