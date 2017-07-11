@@ -16,24 +16,24 @@ angular.module('treckmap').factory('mapRepository', function(AppApi){
 	//navigator.geolocation.watchPosition();
 	navigator.geolocation.getCurrentPosition(function(data){
 		m.map.center = {latitude: data.coords.latitude, longitude: data.coords.longitude};
-		m.me = {coords: angular.copy(m.map.center), key: 'me', options: {icon: '/static/icons/map_markers/bluedot.png'}};
+		m.me = {windowOptions: {visible: false}, coords: angular.copy(m.map.center), key: 'me', options: {icon: '/static/icons/map_markers/bluedot.png'}};
 	});
 
-	function clickMarker(trail){
-		trail.windowOptions.visible = !trail.windowOptions.visible;
+	function clickMarker(marker){
+		marker.windowOptions.visible = !marker.windowOptions.visible;
 	}
 
-	function closeClick(trail){
-		trail.windowOptions.visible = false;
+	function closeClick(marker){
+		marker.windowOptions.visible = false;
 	}
 
 	function init(){
 		m.loading = true;
-		AppApi.list_trails().then(function(result){
-			m.trails = result.data.map(function(trail){
-				trail.windowOptions = {visible: false};
-				trail.options = {icon: '/static/icons/map_markers/treckgreen.png'};
-				return trail;
+		AppApi.list_tracks().then(function(result){
+			m.tracks = result.data.map(function(track){
+				tracks.windowOptions = {visible: false};
+				tracks.options = {icon: '/static/icons/map_markers/treckgreen.png'};
+				return track;
 			});
 		}).finally(function(){
 			m.loading = false;

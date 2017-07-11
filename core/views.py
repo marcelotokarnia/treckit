@@ -1,7 +1,7 @@
 import json
 from django.http.response import JsonResponse
 from django.contrib import auth
-from core.services import trail_services
+from core.services import track_services
 from core.decorators import ajax_login_required
 
 
@@ -38,9 +38,16 @@ def get_user_details(request):
 
 
 @ajax_login_required
-def list_trails(request):
-    trails = trail_services.list_trails()
-    return JsonResponse([t.to_marker() for t in trails], safe=False)
+def list_tracks(request):
+    tracks = track_services.list_tracks()
+    return JsonResponse([t.to_marker() for t in tracks], safe=False)
+
+
+@ajax_login_required
+def list_tracks(request):
+    id = request.GET['id'] or request.POST['id']
+    track = track_services.get_track(id)
+    return JsonResponse(track.to_dict_json())
 
 
 def _user2dict(user):

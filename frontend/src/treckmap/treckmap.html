@@ -1,13 +1,17 @@
 <div class="treckmap">
     <ui-gmap-google-map center='repo.map.center' zoom='repo.map.zoom' dragabble="true">
-        <ui-gmap-marker ng-if="repo.me" coords="repo.me.coords" options="repo.me.options" idkey="repo.me.key"></ui-gmap-marker>
-        <ui-gmap-marker ng-repeat="trail in repo.trails" options="trail.options" click="repo.clickMarker(trail)" coords="trail.coords" idkey="trail.id">
-            <ui-gmap-window options="trail.windowOptions" closeClick="repo.closeClick(trail)">
+        <ui-gmap-marker ng-if="repo.me" coords="repo.me.coords" options="repo.me.options" idkey="repo.me.key" click="repo.clickMarker(repo.me)">
+            <ui-gmap-window options="repo.me.windowOptions" closeClick="repo.closeClick(repo.me)">
+                <div>Você está aqui.</div>
+            </ui-gmap-window>
+        </ui-gmap-marker>
+        <ui-gmap-marker ng-repeat="track in repo.tracks" options="track.options" click="repo.clickMarker(track)" coords="track.coords" idkey="track.id">
+            <ui-gmap-window options="track.windowOptions" closeClick="repo.closeClick(track)">
                 <div>
-                    <h4>{{trail.title}}</h4>
-                    <div>Distância: {{ trail.distance/1000 | number: 2}}km</div>
-                    <div>Subida Acumulada: {{ trail.accumulated_heights }}m</div>
-                    <div>Descida Acumulada: {{ trail.accumulated_depths }}m</div>
+                    <h4>{{track.name}}</h4>
+                    <div>Distância: {{ track.distance/1000 | number: 2}}km</div>
+                    <div>Subida Acumulada: {{ track.accumulated_heights }}m</div>
+                    <div>Descida Acumulada: {{ track.accumulated_depths }}m</div>
                 </div>
             </ui-gmap-window>
         </ui-gmap-marker>

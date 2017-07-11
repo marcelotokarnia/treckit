@@ -6,7 +6,7 @@ angular.module('appapi').factory('AppApi', function(AppAjax){
 		login: login,
 		logout: logout,
 		whoami: whoami,
-		list_trails: list_trails,
+		list_tracks: list_tracks,
 		get_user_details: get_user_details,
 	};
 
@@ -24,8 +24,8 @@ angular.module('appapi').factory('AppApi', function(AppAjax){
 		return AppAjax.get('/api/whoami');
 	}
 
-	function list_trails(filters){
-		return AppAjax.get('/api/list_trails', {filters: angular.toJson(filters)});
+	function list_tracks(filters){
+		return AppAjax.get('/api/list_tracks', {filters: angular.toJson(filters)});
 	}
 
 	function get_user_details(username){
