@@ -1,9 +1,12 @@
 from django.contrib.gis.db import models
+from django.contrib.gis.geos import GEOSGeometry
 
 
 class TrailRecord(models.Model):
     name = models.CharField(max_length=1024)
     start = models.PointField()
+    accumulated_heights = models.IntegerField()
+    accumulated_depths = models.IntegerField()
     simplified_track = models.MultiLineStringField()
 
     def to_marker(self):
@@ -13,8 +16,17 @@ class TrailRecord(models.Model):
                 'latitude': self.start.y,
                 'longitude': self.start.x
             },
-            'id': self.id
+            'id': self.id,
+            'distance': self.simplified_distance,
+            'accumulated_heights': self.accumulated_heights,
+            'accumulated_depths': self.accumulated_depths
         }
+
+    @property
+    def simplified_distance(self):
+        geometry = GEOSGeometry(self.simplified_track)
+        geometry.transform(3857)
+        return geometry.length
 
 
 class TrackPoint(models.Model):

@@ -31,13 +31,26 @@ def gpx_to_gis(filepath):
     datasource = DataSource(filepath)
     track = datasource['tracks'][0]
     first_point = datasource['track_points'][0]
-    tr = TrailRecord(simplified_track=f2geom(track), start=f2geom(first_point), gpx=filepath,
-                     kml=gpx_to_kml(datasource), name=track['name'].value)
+    tr = TrailRecord(simplified_track=f2geom(track), start=f2geom(first_point), name=track['name'].value,
+                     accumulated_depths=0, accumulated_heights=0)
     tr.save()
     for point in datasource['track_points']:
         TrackPoint(point=f2geom(point), time=point['time'].value, ele=point['ele'].value, trail_record=tr).save()
     for waypoint in datasource['waypoints']:
         WayPoint(point=f2geom(waypoint), ele=waypoint['ele'].value, name=waypoint['name'].value, trail_record=tr).save()
+    accumulated_heights = 0
+    accumulated_depths = 0
+    reference = None
+    for trkpt in tr.trackpoints.order_by('time'):
+        if reference is not None:
+            if reference.ele > trkpt.ele:
+                accumulated_depths += reference.ele - trkpt.ele
+            else:
+                accumulated_heights += trkpt.ele - reference.ele
+        reference = trkpt
+    tr.accumulated_heights = accumulated_heights
+    tr.accumulated_depths = accumulated_depths
+    tr.save()
 
 
 def gpx_to_kml(datasource):

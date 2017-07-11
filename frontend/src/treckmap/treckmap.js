@@ -16,7 +16,7 @@ angular.module('treckmap').factory('mapRepository', function(AppApi){
 	//navigator.geolocation.watchPosition();
 	navigator.geolocation.getCurrentPosition(function(data){
 		m.map.center = {latitude: data.coords.latitude, longitude: data.coords.longitude};
-		m.me = {coords: angular.copy(m.map.center), key: 'me', options: {icon: '/static/icons/bluedot.png'}};
+		m.me = {coords: angular.copy(m.map.center), key: 'me', options: {icon: '/static/icons/map_markers/bluedot.png'}};
 	});
 
 	function clickMarker(trail){
@@ -32,6 +32,7 @@ angular.module('treckmap').factory('mapRepository', function(AppApi){
 		AppApi.list_trails().then(function(result){
 			m.trails = result.data.map(function(trail){
 				trail.windowOptions = {visible: false};
+				trail.options = {icon: '/static/icons/map_markers/treckgreen.png'};
 				return trail;
 			});
 		}).finally(function(){
