@@ -8,6 +8,7 @@ angular.module('appapi').factory('AppApi', function(AppAjax){
 		whoami: whoami,
 		list_tracks: list_tracks,
 		get_user_details: get_user_details,
+		get_track_details: get_track_details
 	};
 
 	function todo(){}
@@ -30,6 +31,10 @@ angular.module('appapi').factory('AppApi', function(AppAjax){
 
 	function get_user_details(username){
 		return AppAjax.get('/api/get_user_details', {username: username});	
+	}
+
+	function get_track_details(track_id){
+		return AppAjax.get('/api/get_track_details', {track_id: track_id});
 	}
 
 	return api;

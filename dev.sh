@@ -103,7 +103,7 @@ function frontprod {
     CD=$(pwd)
     cd $PROJ_BASE/frontend
     rm -Rf dist
-    dorun "gulp prod --mock false $*" "Prod build - real deal"
+    dorun "gulp prod --mock false --minify false $*" "Prod build - real deal"
     exitcode=$?
     cd $CD
     return $exitcode

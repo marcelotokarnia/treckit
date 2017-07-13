@@ -14,7 +14,7 @@ angular.module('applogin').factory('AppLoginModel', function(AppAuth, AppApi, $s
 			var logged_user = result.data;
 			if(logged_user){
 				AppAuth.set_user(result.data);
-				$state.go('home');
+				$state.go('treckmap');
 			} else {
 				alert('wrong credentials');
 			}

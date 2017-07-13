@@ -88,6 +88,7 @@ var lib = {
         './bower_components/js-rich-marker/src/richmarker.js',
         './bower_components/markerclustererplus/dist/markerclusterer.min.js',
         './bower_components/angular-google-maps/dist/angular-google-maps.js',
+        './bower_components/angular-ui-notification/dist/angular-ui-notification.js',
     ],
     jsmin: [
         './bower_components/jquery/dist/jquery.min.js',
@@ -103,16 +104,19 @@ var lib = {
         './bower_components/js-rich-marker/src/richmarker-compiled.js',
         './bower_components/markerclustererplus/dist/markerclusterer.min.js',
         './bower_components/angular-google-maps/dist/angular-google-maps.min.js',
+        './bower_components/angular-ui-notification/dist/angular-ui-notification.min.js',
     ],
     css: [
         './bower_components/angular/angular-csp.css',
         './bower_components/bootstrap/dist/css/bootstrap.css',
         './bower_components/bootstrap/dist/css/bootstrap-theme.css',
+        './bower_components/angular-ui-notification/dist/angular-ui-notification.css',
     ],
     cssmin: [
         './bower_components/angular/angular-csp.css',
         './bower_components/bootstrap/dist/css/bootstrap.min.css',
         './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+        './bower_components/angular-ui-notification/dist/angular-ui-notification.min.css',
     ],
     tocopy: [
         './bower_components/bootstrap/dist/fonts/**',

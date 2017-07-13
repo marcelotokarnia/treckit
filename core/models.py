@@ -23,16 +23,29 @@ class Track(BaseModel):
         }
 
     def to_dict_json(self):
-        return {
+        dictj = {
             'name': self.name,
             'coords': {
                 'latitude': self.start.y,
                 'longitude': self.start.x
-            },
-            'best_image': self.images.order_by('-votes').first().to_dict_json(),
-            'best_video': self.videos.order_by('-votes').first().to_dict_json(),
-            'best_text': self.texts.order_by('-votes').first().to_dict_json(),
+            }
         }
+        best_image = self.images.order_by('-votes').first()
+        if best_image:
+            dictj['best_image'] = best_image.to_dict_json()
+        else:
+            dictj['best_image'] = {}
+        best_video = self.videos.order_by('-votes').first()
+        if best_video:
+            dictj['best_video'] = best_video.to_dict_json()
+        else:
+            dictj['best_video'] = {}
+        best_text = self.texts.order_by('-votes').first()
+        if best_text:
+            dictj['best_text'] = best_text.to_dict_json()
+        else:
+            dictj['best_text'] = {}
+        return dictj
 
 
 class TextRecord(BaseModel):

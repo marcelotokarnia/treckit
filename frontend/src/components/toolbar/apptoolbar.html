@@ -7,13 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" ui-sref="home">Djangular3</a>
+      <a class="navbar-brand" ng-show="auth.user" ui-sref="treckmap">TrackPedia</a>
+      <a class="navbar-brand" ng-hide="auth.user" ui-sref="login">TrackPedia</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li ng-class="{active: $state.current.name == 'home'}"><a ui-sref="home">Home</a></li>
-        <li ng-class="{active: $state.current.name == 'admin'}" ng-if="auth.has_permission('ADMIN')"><a ui-sref="admin">Admin</a></li>
-        <li ng-class="{active: $state.current.name == 'treckmap'}"><a ui-sref="treckmap">Mapa</a></li>
+          <li ng-class="{active: $state.current.name == 'treckmap'}" ng-if="auth.user"><a ui-sref="treckmap">Mapa</a></li>
+          <li ng-class="{active: $state.current.name == 'admin'}" ng-if="auth.has_permission('ADMIN')"><a ui-sref="admin">Admin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a ui-sref="login" ng-if="!auth.authenticated()">Login</a></li>

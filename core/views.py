@@ -44,9 +44,9 @@ def list_tracks(request):
 
 
 @ajax_login_required
-def list_tracks(request):
-    id = request.GET['id'] or request.POST['id']
-    track = track_services.get_track(id)
+def get_track_details(request):
+    track_id = request.GET.get('track_id') or request.POST.get('track_id')
+    track = track_services.get_track(track_id)
     return JsonResponse(track.to_dict_json())
 
 

@@ -1,0 +1,7 @@
+<div>
+    <h4>{[{parameter.name}]}</h4>
+    <div>Distância: {[{ parameter.distance/1000 | number: 2}]}km</div>
+    <div>Subida Acumulada: {[{ parameter.accumulated_heights }]}m</div>
+    <div>Descida Acumulada: {[{ parameter.accumulated_depths }]}m</div>
+    <a ui-sref="track({tid:parameter.id})" href>Ver detalhes</a>
+</div>
