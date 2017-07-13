@@ -3,6 +3,7 @@ from django.contrib.gis.gdal import DataSource
 from utils.gis_utils import f2geom, f2kml
 from core.models import TrailRecord, TrackPoint, WayPoint
 
+
 def gis_to_kml():
     kml = open('/tmp/xpto.kml', 'w')
     kml.write('<?xml version="1.0" encoding="UTF-8"?>')
@@ -26,13 +27,12 @@ def gis_to_kml():
     kml.close()
 
 
-def gpx_to_gis(filepath):
+def gpx_to_gis(filepath, trk):
     # ogr2ogr -append -update -f PostgreSQL "PG:dbname='treckit'" /home/tokarnia/Downloads/cachoeira-do-tabuleiro.gpx
     datasource = DataSource(filepath)
     track = datasource['tracks'][0]
-    first_point = datasource['track_points'][0]
-    tr = TrailRecord(simplified_track=f2geom(track), start=f2geom(first_point), name=track['name'].value,
-                     accumulated_depths=0, accumulated_heights=0)
+    tr = TrailRecord(simplified_track=f2geom(track), name=track['name'].value,
+                     accumulated_depths=0, accumulated_heights=0, track=trk)
     tr.save()
     for point in datasource['track_points']:
         TrackPoint(point=f2geom(point), time=point['time'].value, ele=point['ele'].value, trail_record=tr).save()
