@@ -1,3 +1,8 @@
 <div>
     <h3>{[{ m.track.name }]}</h3>
+    <div class="treckmap">
+        <ui-gmap-google-map center='m.map.center' zoom='m.map.zoom' dragabble="true" options="m.map.options" ng-if="!m.loading">
+            <ui-gmap-layer type="KmlLayer" options="m.map.kmlopt"></ui-gmap-layer>
+        </ui-gmap-google-map>
+    </div>
 </div>

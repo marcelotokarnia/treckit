@@ -4,7 +4,10 @@ angular.module('treckmap').factory('mapRepository', function(AppApi, $state){
 	var m = {
 		loading: false,
 		tracks: [],
-		map: { center: { latitude: -22.427386, longitude: -44.796379 }, zoom: 12 },
+		map: {
+			center: { latitude: -22.427386, longitude: -44.796379 },
+			zoom: 12,
+		},
 	};
 
 	angular.extend(m, {

@@ -1,30 +1,25 @@
-from django.db import connection
 from django.contrib.gis.gdal import DataSource
-from utils.gis_utils import f2geom, f2kml
+from utils.gis_utils import f2geom, f2kml, geom2kml
 from core.models import TrailRecord, TrackPoint, WayPoint
 
 
-def gis_to_kml():
-    kml = open('/tmp/xpto.kml', 'w')
-    kml.write('<?xml version="1.0" encoding="UTF-8"?>')
-    kml.write('<kml xmlns="http://www.opengis.net/kml/2.2">')
-    kml.write('<Document>')
-    kml.write('<Placemark>')
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT ST_AsKML(wkb_geometry), name FROM waypoints")
-        waypoint = cursor.fetchone()
-        while waypoint:
-            kml.write('<name>%s</name>' % waypoint[1])
-            kml.write(waypoint[0])
-            kml.write('</Placemark>')
-            kml.write('<Placemark>')
-            waypoint = cursor.fetchone()
-        cursor.execute("SELECT ST_AsKML(ST_MakeLine(wkb_geometry)) FROM track_points")
-        kml.write(cursor.fetchone()[0])
-    kml.write('</Placemark>')
-    kml.write('</Document>')
-    kml.write('</kml>')
-    kml.close()
+def gis_to_kml(trail_record):
+    kml = ""
+    kml += '<?xml version="1.0" encoding="UTF-8"?>'
+    kml += '<kml xmlns="http://www.opengis.net/kml/2.2">'
+    kml += '<Document>'
+    kml += '<Placemark>'
+    waypoints = trail_record.waypoints.all()
+    for waypoint in waypoints:
+        kml += '<name>%s</name>' % waypoint.name
+        kml += geom2kml(waypoint.point)
+        kml += '</Placemark>'
+        kml += '<Placemark>'
+    kml += geom2kml(trail_record.simplified_track)
+    kml += '</Placemark>'
+    kml += '</Document>'
+    kml += '</kml>'
+    return kml
 
 
 def gpx_to_gis(filepath, trk):

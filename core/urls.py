@@ -8,4 +8,5 @@ urlpatterns = patterns('core.views',
     url(r'^api/get_user_details$', 'get_user_details'),
     url(r'^api/list_tracks', 'list_tracks'),
     url(r'^api/get_track_details', 'get_track_details'),
+    url(r'^api/get_track_kml', 'get_track_kml'),
 )

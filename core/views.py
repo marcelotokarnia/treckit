@@ -1,5 +1,5 @@
 import json
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponse
 from django.contrib import auth
 from core.services import track_services
 from core.decorators import ajax_login_required
@@ -37,17 +37,23 @@ def get_user_details(request):
     return JsonResponse(user_dict)
 
 
-@ajax_login_required
 def list_tracks(request):
     tracks = track_services.list_tracks()
     return JsonResponse([t.to_marker() for t in tracks], safe=False)
 
 
-@ajax_login_required
 def get_track_details(request):
     track_id = request.GET.get('track_id') or request.POST.get('track_id')
     track = track_services.get_track(track_id)
     return JsonResponse(track.to_dict_json())
+
+
+def get_track_kml(request):
+    track_id = request.GET.get('track_id') or request.POST.get('track_id')
+    name, kml = track_services.get_track_kml(track_id)
+    response = HttpResponse(kml, content_type='application/kml')
+    response['Content-Disposition'] = 'attachment; filename=%s' % name
+    return response
 
 
 def _user2dict(user):
