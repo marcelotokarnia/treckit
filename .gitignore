@@ -5,3 +5,5 @@ frontend/node_modules
 core/static/js
 core/static/css
 coverage/
+.idea/
+npm-debug.log
