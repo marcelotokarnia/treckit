@@ -51,7 +51,7 @@ def get_track_details(request):
 def get_track_kml(request):
     track_id = request.GET.get('track_id') or request.POST.get('track_id')
     name, kml = track_services.get_track_kml(track_id)
-    response = HttpResponse(kml, content_type='application/kml')
+    response = HttpResponse(kml, content_type='application/vnd.google-earth.kml+xml')
     response['Content-Disposition'] = 'attachment; filename=%s' % name
     return response
 
